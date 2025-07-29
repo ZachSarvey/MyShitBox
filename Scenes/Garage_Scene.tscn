@@ -5,8 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://cebmfg8w82hts" path="res://Scenes/Player.tscn" id="2_ro7nu"]
 [ext_resource type="PackedScene" uid="uid://xjt3kvksxjh0" path="res://3D Models/300ZX/scene.gltf" id="3_0bb6c"]
 [ext_resource type="PackedScene" uid="uid://iuc6cuewhdxm" path="res://Scenes/pause_menu.tscn" id="4_mntb6"]
-[ext_resource type="Terrain3DMaterial" uid="uid://cq7ai2c8ob6e7" path="res://addons/terrain_3d/data_Share/Garage_Scene_mat.tres" id="6_6klx0"]
-[ext_resource type="Terrain3DAssets" uid="uid://dal3jhw6241qg" path="res://addons/terrain_3d/demo/data/assets.tres" id="7_6klx0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0bb6c"]
 
@@ -17,17 +15,23 @@ sky_material = SubResource("ProceduralSkyMaterial_0bb6c")
 background_mode = 2
 sky = SubResource("Sky_mntb6")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_7vupy"]
+size = Vector3(20, 0.1, 20)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7vupy"]
+size = Vector2(20, 20)
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_7vupy")
 
 [node name="Low Poly Barn" parent="." instance=ExtResource("1_lv0gy")]
-transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 72.1339, 0, 0.685877)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 72.1339, 0, 0.685877)
 
 [node name="Player" parent="." instance=ExtResource("2_ro7nu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.4289, 0.49638, 3.38208)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.4289, 1.83528, 7.62812)
 
 [node name="Sketchfab_Scene" parent="." instance=ExtResource("3_0bb6c")]
-transform = Transform3D(0.499367, 0, 0.0251569, 0, 0.5, 0, -0.0251569, 0, 0.499367, 75.166, -0.0526836, -1.55071)
+transform = Transform3D(1.39823, 0, 0.0704393, 0, 1.4, 0, -0.0704393, 0, 1.39823, 77.6816, -0.0526836, -2.58307)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.38328, -0.282441, 0.879388, 0.81555, 0.343433, 0.46576, -0.433561, 0.895701, 0.0987138, 73.227, 0, 0)
@@ -39,9 +43,11 @@ environment = SubResource("Environment_0bb6c")
 
 [node name="PauseMenu" parent="." instance=ExtResource("4_mntb6")]
 
-[node name="Terrain3D" type="Terrain3D" parent="."]
-data_directory = "res://addons/terrain_3d/dsat"
-material = ExtResource("6_6klx0")
-assets = ExtResource("7_6klx0")
-top_level = true
-metadata/_edit_lock_ = true
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.7387, -0.0379322, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_7vupy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_7vupy")
