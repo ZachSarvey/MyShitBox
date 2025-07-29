@@ -25,13 +25,13 @@ size = Vector2(20, 20)
 script = ExtResource("1_7vupy")
 
 [node name="Low Poly Barn" parent="." instance=ExtResource("1_lv0gy")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 72.1339, 0, 0.685877)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 72.1339, -0.0615051, 0.685877)
 
 [node name="Player" parent="." instance=ExtResource("2_ro7nu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.4289, 1.83528, 7.62812)
 
 [node name="Sketchfab_Scene" parent="." instance=ExtResource("3_0bb6c")]
-transform = Transform3D(1.39823, 0, 0.0704393, 0, 1.4, 0, -0.0704393, 0, 1.39823, 77.6816, -0.0526836, -2.58307)
+transform = Transform3D(1.39823, 0, 0.0704393, 0, 1.4, 0, -0.0704393, 0, 1.39823, 77.6816, -0.039675, -2.58307)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.38328, -0.282441, 0.879388, 0.81555, 0.343433, 0.46576, -0.433561, 0.895701, 0.0987138, 73.227, 0, 0)
