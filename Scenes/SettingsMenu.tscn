@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://di64gfj0sxr6q"]
 
-[ext_resource type="Script" uid="uid://b850e2kjc7ojr" path="res://Scenes/settings_menu.gd" id="1_8uw7q"]
+[ext_resource type="Script" uid="uid://b850e2kjc7ojr" path="res://Scripts/settings_menu.gd" id="1_8uw7q"]
 [ext_resource type="Script" uid="uid://bc4yv4bty5bei" path="res://Scripts/SettingsManager.gd" id="2_bxjf0"]
 
 [node name="SettingsMenu" type="Control"]
@@ -11,7 +11,7 @@ script = ExtResource("1_8uw7q")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("2_bxjf0")
 
-[node name="FullscreenToggle" type="CheckButton" parent="CanvasLayer"]
+[node name="FullscreenCheckBox" type="CheckButton" parent="CanvasLayer"]
 anchors_preset = -1
 anchor_left = 0.445
 anchor_top = 0.476
@@ -25,7 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Fullscreen"
 
-[node name="MaxVolume" type="HSlider" parent="CanvasLayer"]
+[node name="VolumeSlider" type="HSlider" parent="CanvasLayer"]
 anchors_preset = -1
 anchor_left = 0.451
 anchor_top = 0.529
@@ -37,8 +37,11 @@ offset_right = 0.407959
 offset_bottom = 0.00799561
 grow_horizontal = 2
 grow_vertical = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
 
-[node name="MouseSens" type="HSlider" parent="CanvasLayer"]
+[node name="SensitivitySlider" type="HSlider" parent="CanvasLayer"]
 anchors_preset = -1
 anchor_left = 0.451
 anchor_top = 0.559
@@ -48,3 +51,40 @@ offset_left = -0.552063
 offset_top = -0.231995
 offset_right = 0.407959
 offset_bottom = 0.216003
+value = 20.0
+
+[node name="SaveButton" type="Button" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.552
+anchor_top = 0.605
+anchor_right = 0.601
+anchor_bottom = 0.653
+offset_left = 3.09595
+offset_top = -0.0400085
+offset_right = -3.35199
+offset_bottom = -0.144043
+grow_horizontal = 2
+grow_vertical = 2
+text = "APPLY
+"
+
+[node name="Back" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = 68.0
+offset_right = -5.0
+offset_bottom = 99.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "BACK"
+
+[connection signal="toggled" from="CanvasLayer/FullscreenCheckBox" to="." method="_on_FullscreenCheckBox_toggled"]
+[connection signal="value_changed" from="CanvasLayer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/SensitivitySlider" to="." method="_on_SensitivitySlider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/SaveButton" to="." method="_on_SaveButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_Back_pressed"]

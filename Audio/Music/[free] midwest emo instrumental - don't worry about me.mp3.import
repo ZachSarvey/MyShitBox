@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bia5hbgir8bye"
+path="res://.godot/imported/[free] midwest emo instrumental - don't worry about me.mp3-3c4a12ff8853f79295ee64a6445bfe47.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/[free] midwest emo instrumental - don't worry about me.mp3"
+dest_files=["res://.godot/imported/[free] midwest emo instrumental - don't worry about me.mp3-3c4a12ff8853f79295ee64a6445bfe47.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
