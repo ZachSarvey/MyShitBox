@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dn8d0e4ci04ko"]
+[gd_scene load_steps=16 format=3 uid="uid://dn8d0e4ci04ko"]
 
 [ext_resource type="Script" uid="uid://d0xgpvmmyjx48" path="res://Scripts/main.gd" id="1_7vupy"]
 [ext_resource type="PackedScene" uid="uid://poy8led62ypj" path="res://3D Models/Barn/Low Poly Barn.fbx" id="1_lv0gy"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://xjt3kvksxjh0" path="res://3D Models/300ZX/scene.gltf" id="3_0bb6c"]
 [ext_resource type="PackedScene" uid="uid://iuc6cuewhdxm" path="res://Scenes/pause_menu.tscn" id="4_mntb6"]
 [ext_resource type="PackedScene" uid="uid://7hlpbae83c1w" path="res://Scenes/Interactable.tscn" id="6_t4kwa"]
+[ext_resource type="Script" uid="uid://daadsbk67n7kc" path="res://Scenes/Money_UI.gd" id="7_6klx0"]
+[ext_resource type="Script" uid="uid://dne0o84yn1j4s" path="res://Scenes/money_pickup.gd" id="7_sth8s"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0bb6c"]
 
@@ -15,6 +17,24 @@ sky_material = SubResource("ProceduralSkyMaterial_0bb6c")
 [sub_resource type="Environment" id="Environment_0bb6c"]
 background_mode = 2
 sky = SubResource("Sky_mntb6")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 3
+ssr_enabled = true
+ssao_enabled = true
+ssao_intensity = 0.8
+ssil_enabled = true
+sdfgi_normal_bias = 3.845
+glow_enabled = true
+glow_intensity = 0.3
+glow_bloom = 0.48
+fog_mode = 1
+fog_density = 1.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0059
+adjustment_enabled = true
+adjustment_contrast = 1.32
+adjustment_saturation = 1.16
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7vupy"]
 size = Vector3(700, 0.1, 700)
@@ -22,44 +42,78 @@ size = Vector3(700, 0.1, 700)
 [sub_resource type="PlaneMesh" id="PlaneMesh_7vupy"]
 size = Vector2(700, 700)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_6klx0"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_6klx0"]
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_7vupy")
 
-[node name="Low Poly Barn" parent="." instance=ExtResource("1_lv0gy")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 72.1339, -0.0615051, 0.685877)
-
-[node name="Sketchfab_Scene" parent="." instance=ExtResource("3_0bb6c")]
-transform = Transform3D(1.39823, 0, 0.0704393, 0, 1.4, 0, -0.0704393, 0, 1.39823, 77.6816, -0.039675, -2.58307)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.38328, -0.282441, 0.879388, 0.81555, 0.343433, 0.46576, -0.433561, 0.895701, 0.0987138, 73.227, 0, 0)
-light_energy = 0.8
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_0bb6c")
-
 [node name="PauseMenu" parent="." instance=ExtResource("4_mntb6")]
-
-[node name="Ground" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.7387, -0.0379322, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-shape = SubResource("BoxShape3D_7vupy")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-mesh = SubResource("PlaneMesh_7vupy")
 
 [node name="Player" parent="." instance=ExtResource("2_ro7nu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.1733, 1.61472, 6.6148)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75.7519, 2.21286, -1.96535)
+[node name="Objects" type="Node" parent="."]
+
+[node name="Buildings" type="Node" parent="."]
+
+[node name="Low Poly Barn" parent="Buildings" instance=ExtResource("1_lv0gy")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 72.1339, -0.0615051, 0.685877)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Buildings/Low Poly Barn"]
+transform = Transform3D(0.333333, 0, 0, 0, 0.333333, 0, 0, 0, 0.333333, 1.206, 0.758122, -0.883742)
 light_color = Color(1, 0.899898, 0.572886, 1)
 light_energy = 1.188
 shadow_enabled = true
 
-[node name="Objects" type="Node" parent="."]
+[node name="Cars" type="Node" parent="."]
 
-[node name="Interactable" parent="." instance=ExtResource("6_t4kwa")]
+[node name="300ZX" parent="Cars" instance=ExtResource("3_0bb6c")]
+transform = Transform3D(1.39823, 0, 0.0704393, 0, 1.4, 0, -0.0704393, 0, 1.39823, 77.6816, -0.039675, -2.58307)
+
+[node name="World" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_0bb6c")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
+transform = Transform3D(-0.38328, -0.282441, 0.879388, 0.81555, 0.343433, 0.46576, -0.433561, 0.895701, 0.0987138, 73.227, 0, 0)
+light_energy = 0.8
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.7387, -0.0379322, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Ground"]
+shape = SubResource("BoxShape3D_7vupy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ground"]
+mesh = SubResource("PlaneMesh_7vupy")
+
+[node name="Interactables" type="Node" parent="."]
+
+[node name="Interactable" parent="Interactables" instance=ExtResource("6_t4kwa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75.4717, 0.527068, 7.30297)
+
+[node name="MoneyPickup" type="Area3D" parent="Interactables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.3265, 0, 6.89962)
+script = ExtResource("7_sth8s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactables/MoneyPickup"]
+shape = SubResource("SphereShape3D_6klx0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Interactables/MoneyPickup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.495745, 0)
+mesh = SubResource("SphereMesh_6klx0")
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("7_6klx0")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MoneyLabel" type="Label" parent="UI/MarginContainer"]
+layout_mode = 2
+text = "Money: $0"

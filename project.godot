@@ -15,6 +15,10 @@ run/main_scene="uid://dn8d0e4ci04ko"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MoneyManager="*res://Scripts/MoneyManager.gd"
+
 [input]
 
 move_forward={
