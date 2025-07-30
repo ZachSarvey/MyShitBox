@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://di64gfj0sxr6q"]
+
+[ext_resource type="Script" uid="uid://b850e2kjc7ojr" path="res://Scenes/settings_menu.gd" id="1_8uw7q"]
+[ext_resource type="Script" uid="uid://bc4yv4bty5bei" path="res://Scripts/SettingsManager.gd" id="2_bxjf0"]
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_8uw7q")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("2_bxjf0")
+
+[node name="FullscreenToggle" type="CheckButton" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.445
+anchor_top = 0.476
+anchor_right = 0.555
+anchor_bottom = 0.524
+offset_left = -0.140015
+offset_top = 0.052002
+offset_right = 0.140015
+offset_bottom = -0.0520325
+grow_horizontal = 2
+grow_vertical = 2
+text = "Fullscreen"
+
+[node name="MaxVolume" type="HSlider" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.451
+anchor_top = 0.529
+anchor_right = 0.596
+anchor_bottom = 0.554
+offset_left = -0.552063
+offset_top = 0.207977
+offset_right = 0.407959
+offset_bottom = 0.00799561
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MouseSens" type="HSlider" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.451
+anchor_top = 0.559
+anchor_right = 0.596
+anchor_bottom = 0.583
+offset_left = -0.552063
+offset_top = -0.231995
+offset_right = 0.407959
+offset_bottom = 0.216003

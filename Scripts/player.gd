@@ -76,3 +76,26 @@ func _input(event):
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		pitch = clamp(pitch - event.relative.y * mouse_sensitivity, deg_to_rad(-89), deg_to_rad(89))
 		camera.rotation.x = pitch
+
+func get_save_data() -> Dictionary:
+	return {
+		"position": {
+			"x": global_position.x,
+			"y": global_position.y,
+			"z": global_position.z
+		},
+		"rotation": {
+			"x": rotation_degrees.x,
+			"y": rotation_degrees.y,
+			"z": rotation_degrees.z
+		}
+	}
+
+func load_from_save(data: Dictionary) -> void:
+	if data.has("position"):
+		var p = data["position"]
+		global_position = Vector3(p["x"], p["y"], p["z"])
+
+	if data.has("rotation"):
+		var r = data["rotation"]
+		rotation_degrees = Vector3(r["x"], r["y"], r["z"])

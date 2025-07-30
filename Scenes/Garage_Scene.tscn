@@ -1,13 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://dn8d0e4ci04ko"]
+[gd_scene load_steps=17 format=3 uid="uid://dn8d0e4ci04ko"]
 
 [ext_resource type="Script" uid="uid://d0xgpvmmyjx48" path="res://Scripts/main.gd" id="1_7vupy"]
-[ext_resource type="PackedScene" uid="uid://poy8led62ypj" path="res://3D Models/Barn/Low Poly Barn.fbx" id="1_lv0gy"]
 [ext_resource type="PackedScene" uid="uid://cebmfg8w82hts" path="res://Scenes/Player.tscn" id="2_ro7nu"]
 [ext_resource type="PackedScene" uid="uid://xjt3kvksxjh0" path="res://3D Models/300ZX/scene.gltf" id="3_0bb6c"]
 [ext_resource type="PackedScene" uid="uid://iuc6cuewhdxm" path="res://Scenes/pause_menu.tscn" id="4_mntb6"]
 [ext_resource type="PackedScene" uid="uid://7hlpbae83c1w" path="res://Scenes/Interactable.tscn" id="6_t4kwa"]
-[ext_resource type="Script" uid="uid://daadsbk67n7kc" path="res://Scenes/Money_UI.gd" id="7_6klx0"]
-[ext_resource type="Script" uid="uid://dne0o84yn1j4s" path="res://Scenes/money_pickup.gd" id="7_sth8s"]
+[ext_resource type="Script" uid="uid://daadsbk67n7kc" path="res://Scripts/Money_UI.gd" id="7_6klx0"]
+[ext_resource type="Script" uid="uid://dne0o84yn1j4s" path="res://Scripts/money_pickup.gd" id="7_sth8s"]
+[ext_resource type="PackedScene" uid="uid://b50jykoq5hsml" path="res://Scenes/low_poly_barn.tscn" id="8_sth8s"]
+[ext_resource type="Texture2D" uid="uid://dghofug3hx2va" path="res://Textures/KovaaK-Crosshair.png" id="9_6j7gp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0bb6c"]
 
@@ -58,14 +59,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.1733, 1.61472, 6.6148)
 
 [node name="Buildings" type="Node" parent="."]
 
-[node name="Low Poly Barn" parent="Buildings" instance=ExtResource("1_lv0gy")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 72.1339, -0.0615051, 0.685877)
+[node name="Low Poly Barn" parent="Buildings" instance=ExtResource("8_sth8s")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 72.4431, -0.00358963, 0.84479)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Buildings/Low Poly Barn"]
-transform = Transform3D(0.333333, 0, 0, 0, 0.333333, 0, 0, 0, 0.333333, 1.206, 0.758122, -0.883742)
-light_color = Color(1, 0.899898, 0.572886, 1)
-light_energy = 1.188
-shadow_enabled = true
+transform = Transform3D(0.333333, 0, 0, 0, 0.333333, 0, 0, 0, 0.333333, 1.20879, 1.0742, -1.44656)
+light_color = Color(1, 0.94902, 0.619608, 1)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Buildings/Low Poly Barn"]
+transform = Transform3D(0.333333, 0, 0, 0, 0.333333, 0, 0, 0, 0.333333, 1.20879, 1.0742, -0.446556)
+light_color = Color(1, 0.94934, 0.617744, 1)
 
 [node name="Cars" type="Node" parent="."]
 
@@ -117,3 +120,19 @@ offset_bottom = 40.0
 [node name="MoneyLabel" type="Label" parent="UI/MarginContainer"]
 layout_mode = 2
 text = "Money: $0"
+
+[node name="TextureRect" type="TextureRect" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.491
+anchor_top = 0.485
+anchor_right = 0.508
+anchor_bottom = 0.515
+offset_left = 0.367981
+offset_top = -0.280029
+offset_right = 18.784
+offset_bottom = 18.2799
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.52, 0.52)
+texture = ExtResource("9_6j7gp")
+stretch_mode = 3

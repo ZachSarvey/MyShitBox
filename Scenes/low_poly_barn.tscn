@@ -1,0 +1,96 @@
+[gd_scene load_steps=18 format=3 uid="uid://b50jykoq5hsml"]
+
+[ext_resource type="PackedScene" uid="uid://poy8led62ypj" path="res://3D Models/Barn/Low Poly Barn.fbx" id="1_55nlj"]
+[ext_resource type="Texture2D" uid="uid://c32homymfkfer" path="res://3D Models/Barn/Low Poly Barn/Planks_004_Old.jpg" id="2_pa8nf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_58wlp"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lpsoi"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ovtpl"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bki61"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qxbtd"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_50hgt"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n2kdo"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_38e2c"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_km3b8"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v3n1a"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_48at0"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u2e2k"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5aga0"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3r7n2"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y7a5q"]
+albedo_texture = ExtResource("2_pa8nf")
+
+[node name="Low Poly Barn" instance=ExtResource("1_55nlj")]
+
+[node name="Mesh1" parent="Model/Group1/Group2" index="0"]
+material_override = SubResource("StandardMaterial3D_58wlp")
+
+[node name="Mesh2" parent="Model/Group1/Group3" index="0"]
+material_override = SubResource("StandardMaterial3D_lpsoi")
+
+[node name="Mesh3" parent="Model/Group1/Difference" index="0"]
+material_override = SubResource("StandardMaterial3D_ovtpl")
+
+[node name="Mesh4" parent="Model/Group1/Group4" index="0"]
+material_override = SubResource("StandardMaterial3D_bki61")
+
+[node name="Mesh5" parent="Model/Group1/Group5" index="0"]
+material_override = SubResource("StandardMaterial3D_qxbtd")
+
+[node name="Mesh6" parent="Model/Group1/Group6" index="0"]
+material_override = SubResource("StandardMaterial3D_50hgt")
+
+[node name="Mesh7" parent="Model/Group1/Group7" index="0"]
+material_override = SubResource("StandardMaterial3D_n2kdo")
+
+[node name="Mesh8" parent="Model/Group1/Group8" index="0"]
+material_override = SubResource("StandardMaterial3D_38e2c")
+
+[node name="Mesh9" parent="Model/Group1/Group9" index="0"]
+material_override = SubResource("StandardMaterial3D_km3b8")
+
+[node name="Mesh10" parent="Model/Group1/Group10" index="0"]
+material_override = SubResource("StandardMaterial3D_v3n1a")
+
+[node name="Mesh11" parent="Model/Group1/Group11" index="0"]
+material_override = SubResource("StandardMaterial3D_48at0")
+
+[node name="Mesh12" parent="Model/Group1/Group12" index="0"]
+material_override = SubResource("StandardMaterial3D_u2e2k")
+
+[node name="Mesh13" parent="Model/Group1/Group13" index="0"]
+material_override = SubResource("StandardMaterial3D_5aga0")
+
+[node name="Mesh14" parent="Model/Group1/Group14" index="0"]
+material_override = SubResource("StandardMaterial3D_3r7n2")
+
+[node name="Mesh15" parent="Model/Group1/Group15" index="0"]
+material_override = SubResource("StandardMaterial3D_y7a5q")

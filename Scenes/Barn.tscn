@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1ij5i803d45u"]
+
+[ext_resource type="PackedScene" uid="uid://poy8led62ypj" path="res://3D Models/Barn/Low Poly Barn.fbx" id="1_qgomg"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Low Poly Barn" parent="." instance=ExtResource("1_qgomg")]
