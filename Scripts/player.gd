@@ -10,6 +10,7 @@ var camera: Camera3D
 
 func _ready():
 	camera = $Camera3D
+	interaction_ray = $Camera3D/InteractionRay
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta):
@@ -37,6 +38,12 @@ func _physics_process(delta):
 	var horizontal_velocity = input_direction * speed
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
+	
+	if interaction_ray.is_colliding():
+		var collider = interaction_ray.get_collider()
+		if Input.is_action_just_pressed("interact") and collider.has_method("interact"):
+			collider.interact()
+
 
 	# Apply movement
 	move_and_slide()
@@ -46,3 +53,5 @@ func _input(event):
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		pitch = clamp(pitch - event.relative.y * mouse_sensitivity, deg_to_rad(-89), deg_to_rad(89))
 		camera.rotation.x = pitch
+
+var interaction_ray: RayCast3D
