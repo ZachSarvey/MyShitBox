@@ -1,16 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://7hlpbae83c1w"]
+[gd_scene load_steps=6 format=3 uid="uid://7hlpbae83c1w"]
 
 [ext_resource type="Script" uid="uid://1v1egmm1ijy2" path="res://Scripts/interactable.gd" id="1_pi15k"]
+[ext_resource type="Shader" uid="uid://1ijc53hrv7q5" path="res://Shaders/shader_outline.gdshader" id="2_v6xsw"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_5d17x"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3jdfj"]
+render_priority = 0
+shader = ExtResource("2_v6xsw")
+shader_parameter/outline_color = Color(0.345098, 1, 0, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_5d17x"]
 
-[node name="Interactable" type="StaticBody3D"]
+[node name="Interactable" type="StaticBody3D" node_paths=PackedStringArray("outline_mesh")]
 script = ExtResource("1_pi15k")
+outline_mesh = NodePath("OutlineMesh")
+
+[node name="OutlineMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.03, 0, 0, 0, 1.03, 0, 0, 0, 1.03, 0, 0, 0)
+mesh = SubResource("BoxMesh_5d17x")
+surface_material_override/0 = SubResource("ShaderMaterial_3jdfj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_5d17x")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_5d17x")

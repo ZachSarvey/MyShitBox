@@ -14,5 +14,4 @@ shape = SubResource("CapsuleShape3D_nintu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 
 [node name="InteractionRay" type="RayCast3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2, 0)
 target_position = Vector3(0, 0, -3)

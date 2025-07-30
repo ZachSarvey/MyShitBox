@@ -62,4 +62,4 @@ shadow_enabled = true
 [node name="Objects" type="Node" parent="."]
 
 [node name="Interactable" parent="." instance=ExtResource("6_t4kwa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.2466, 0.512068, 8.65126)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75.4717, 0.527068, 7.30297)
