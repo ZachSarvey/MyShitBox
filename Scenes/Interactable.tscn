@@ -26,3 +26,5 @@ mesh = SubResource("BoxMesh_5d17x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_5d17x")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]

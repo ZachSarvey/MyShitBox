@@ -7,10 +7,15 @@ extends CharacterBody3D
 
 var pitch := 0.0
 var camera: Camera3D
+
 var interaction_ray: RayCast3D
 var last_highlighted = null
 
 var movement_enabled := true
+
+# Pickup system
+var held_item: Node3D = null
+@onready var hold_point = $Camera3D/HoldPoint  # Make sure this node exists
 
 func _ready():
 	camera = $Camera3D
@@ -19,12 +24,10 @@ func _ready():
 
 func _physics_process(delta):
 	if not movement_enabled:
-		# Freeze all velocity and skip interactions
 		velocity = Vector3.ZERO
 		move_and_slide()
 		return
 
-	# Apply gravity
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	else:
@@ -32,7 +35,6 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = jump_velocity
 
-	# Handle movement
 	var input_direction = Vector3.ZERO
 	if Input.is_action_pressed("move_forward"):
 		input_direction -= transform.basis.z
@@ -48,20 +50,22 @@ func _physics_process(delta):
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
 
-	# Apply movement
 	move_and_slide()
 
-	# Process interaction and highlight
 	_process_interaction()
 
 func _process_interaction():
 	if not movement_enabled:
 		return
 
+	# Always check for drop first when pressing pickup
+	if Input.is_action_just_pressed("pickup") and held_item:
+		drop_held_item()
+		return
+
 	if interaction_ray.is_colliding():
 		var collider = interaction_ray.get_collider()
 
-		# Climb up the node tree until a node with 'highlight' method is found
 		while collider and not collider.has_method("highlight"):
 			collider = collider.get_parent()
 
@@ -74,13 +78,44 @@ func _process_interaction():
 				collider.highlight(true)
 				last_highlighted = collider
 
+			# Regular interaction
 			if Input.is_action_just_pressed("interact") and collider.has_method("interact"):
 				print("Interacting with:", collider.name)
 				collider.interact()
+
+			# Pickup new item if not holding anything
+			if Input.is_action_just_pressed("pickup") and collider.has_method("pickup") and not held_item:
+				pickup_item(collider)
 	else:
 		if last_highlighted and last_highlighted.has_method("highlight"):
 			last_highlighted.highlight(false)
 		last_highlighted = null
+
+func pickup_item(item: Node3D):
+	held_item = item
+	held_item.get_parent().remove_child(held_item)
+	hold_point.add_child(held_item)
+	held_item.transform = Transform3D.IDENTITY
+	held_item.position = Vector3.ZERO
+
+	if held_item is RigidBody3D:
+		held_item.freeze = true
+		held_item.gravity_scale = 0
+		held_item.body_mode = RigidBody3D.BODY_MODE_STATIC
+
+func drop_held_item():
+	if held_item:
+		var world = get_tree().current_scene
+		hold_point.remove_child(held_item)
+		world.add_child(held_item)
+		held_item.global_transform = hold_point.global_transform
+
+		if held_item is RigidBody3D:
+			held_item.freeze = false
+			held_item.gravity_scale = 1
+			held_item.body_mode = RigidBody3D.BODY_MODE_RIGID
+
+		held_item = null
 
 func _input(event):
 	if not movement_enabled:
@@ -114,6 +149,5 @@ func load_from_save(data: Dictionary) -> void:
 		var r = data["rotation"]
 		rotation_degrees = Vector3(r["x"], r["y"], r["z"])
 
-# External toggle to enable/disable movement (e.g. from the computer script)
 func set_movement_enabled(enabled: bool) -> void:
 	movement_enabled = enabled

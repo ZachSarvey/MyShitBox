@@ -83,8 +83,8 @@ grow_vertical = 2
 text = "BACK"
 
 [connection signal="toggled" from="CanvasLayer/FullscreenCheckBox" to="." method="_on_FullscreenCheckBox_toggled"]
-[connection signal="value_changed" from="CanvasLayer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/SensitivitySlider" to="." method="_on_SensitivitySlider_value_changed"]
 [connection signal="pressed" from="CanvasLayer/SaveButton" to="." method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_Back_pressed"]
