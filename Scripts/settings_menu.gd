@@ -1,6 +1,6 @@
 extends Control
 
-@onready var fullscreen_checkbox = $CanvasLayer/FullScreenCheckBox
+@onready var fullscreen_checkbox = $CanvasLayer/FullscreenCheckBox
 @onready var volume_slider = $CanvasLayer/VolumeSlider
 @onready var sensitivity_slider = $CanvasLayer/SensitivitySlider
 
@@ -12,13 +12,13 @@ func _ready():
 
 	# Initialize UI values from SettingsManager singleton
 	if fullscreen_checkbox:
-		fullscreen_checkbox.pressed = SettingsManager.fullscreen
+		fullscreen_checkbox.button_pressed = SettingsManager.fullscreen
 	if volume_slider:
 		volume_slider.value = SettingsManager.volume
 	if sensitivity_slider:
 		sensitivity_slider.value = SettingsManager.mouse_sensitivity
 
-func _on_FullScreenCheckBox_toggled(pressed: bool) -> void:
+func _on_FullscreenCheckBox_toggled(pressed: bool) -> void:
 	SettingsManager.set_fullscreen(pressed)
 
 func _on_VolumeSlider_value_changed(value: float) -> void:
@@ -32,11 +32,10 @@ func _on_Back_pressed() -> void:
 
 func _on_SaveButton_pressed() -> void:
 	print("Save button pressed")
-	print("volume_slider:", volume_slider)
-	if volume_slider == null:
-		print("Error: volume_slider is null!")
+	if volume_slider == null or sensitivity_slider == null or fullscreen_checkbox == null:
+		print("Error: One or more UI elements are null!")
 		return
 	print("volume_slider.value:", volume_slider.value)
 	SettingsManager.set_volume(volume_slider.value)
 	SettingsManager.set_mouse_sensitivity(sensitivity_slider.value)
-	SettingsManager.set_fullscreen(fullscreen_checkbox.pressed)
+	SettingsManager.set_fullscreen(fullscreen_checkbox.button_pressed)
