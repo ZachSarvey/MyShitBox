@@ -10,12 +10,20 @@ var camera: Camera3D
 var interaction_ray: RayCast3D
 var last_highlighted = null
 
+var movement_enabled := true
+
 func _ready():
 	camera = $Camera3D
 	interaction_ray = $Camera3D/InteractionRay
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta):
+	if not movement_enabled:
+		# Freeze all velocity and skip interactions
+		velocity = Vector3.ZERO
+		move_and_slide()
+		return
+
 	# Apply gravity
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -47,6 +55,9 @@ func _physics_process(delta):
 	_process_interaction()
 
 func _process_interaction():
+	if not movement_enabled:
+		return
+
 	if interaction_ray.is_colliding():
 		var collider = interaction_ray.get_collider()
 
@@ -72,6 +83,9 @@ func _process_interaction():
 		last_highlighted = null
 
 func _input(event):
+	if not movement_enabled:
+		return
+
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		pitch = clamp(pitch - event.relative.y * mouse_sensitivity, deg_to_rad(-89), deg_to_rad(89))
@@ -99,3 +113,7 @@ func load_from_save(data: Dictionary) -> void:
 	if data.has("rotation"):
 		var r = data["rotation"]
 		rotation_degrees = Vector3(r["x"], r["y"], r["z"])
+
+# External toggle to enable/disable movement (e.g. from the computer script)
+func set_movement_enabled(enabled: bool) -> void:
+	movement_enabled = enabled

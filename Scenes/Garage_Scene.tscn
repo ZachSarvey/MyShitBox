@@ -156,7 +156,6 @@ stretch_mode = 3
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ComputerDesktop" type="Control" parent="CanvasLayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -166,22 +165,120 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PromptLabel" type="Label" parent="CanvasLayer/ComputerDesktop"]
+[node name="LoginPanel" type="Panel" parent="CanvasLayer/ComputerDesktop"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -122.5
-offset_top = -11.5
-offset_right = 122.5
-offset_bottom = 11.5
+anchors_preset = -1
+offset_left = -137.0
+offset_top = -165.5
+offset_right = 137.0
+offset_bottom = 165.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "WELCOME TO YOUR COMPUTER"
+
+[node name="PasswordInput" type="LineEdit" parent="CanvasLayer/ComputerDesktop/LoginPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.376
+anchor_top = 0.503
+anchor_right = 0.626
+anchor_bottom = 0.597
+offset_left = -0.0240021
+offset_top = 0.00698853
+offset_right = 0.0379791
+offset_bottom = -0.106995
+secret = true
+
+[node name="UsernameInput" type="LineEdit" parent="CanvasLayer/ComputerDesktop/LoginPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.376
+anchor_top = 0.4
+anchor_right = 0.626
+anchor_bottom = 0.494
+offset_left = -0.0240021
+offset_top = 0.0999908
+offset_right = 0.0384827
+offset_bottom = -0.0140076
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LoginButton" type="Button" parent="CanvasLayer/ComputerDesktop/LoginPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.409
+anchor_top = 0.687
+anchor_right = 0.591
+anchor_bottom = 0.781
+offset_left = -0.0660019
+offset_top = 0.102982
+offset_right = 0.0659943
+offset_bottom = -0.0110168
+grow_horizontal = 2
+grow_vertical = 0
+text = "Login"
+
+[node name="ErrorLabel" type="Label" parent="CanvasLayer/ComputerDesktop/LoginPanel"]
+visible = false
+layout_mode = 0
+offset_left = 12.0
+offset_top = 260.5
+offset_right = 261.0
+offset_bottom = 283.5
+text = "ERROR: Please check your input."
+
+[node name="PromptLabel" type="Label" parent="CanvasLayer/ComputerDesktop/LoginPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.053
+anchor_top = 0.059
+anchor_right = 0.947
+anchor_bottom = 0.128
+offset_left = -0.0220013
+offset_top = -0.0290012
+offset_right = 0.0220032
+offset_bottom = 0.131996
+grow_horizontal = 2
+grow_vertical = 2
+text = "WELCOME TO YOUR COMPUTER
+Please Login to Continue"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Desktop" type="Control" parent="CanvasLayer/ComputerDesktop"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="InternetButton" type="Button" parent="CanvasLayer/ComputerDesktop/Desktop"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.25
+anchor_right = 0.575
+anchor_bottom = 0.2
+offset_left = -69.0
+offset_top = 119.0
+offset_right = 52.0
+offset_bottom = 144.0
+text = "Internet
+"
+
+[node name="InternetApp" type="Control" parent="CanvasLayer/ComputerDesktop"]
+anchors_preset = 0
+offset_left = -22.0
+offset_top = -16.0
+offset_right = 18.0
+offset_bottom = 24.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/ComputerDesktop/InternetApp"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.875
+anchor_top = -3.75
+anchor_right = 4.05
+anchor_bottom = 4.525
+offset_top = 1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ComputerPrompt" type="Label" parent="CanvasLayer"]
 visible = false
@@ -204,6 +301,7 @@ script = ExtResource("10_nd6nb")
 area_node_path = NodePath("Area3D")
 desktop_ui_node_path = NodePath("../CanvasLayer/ComputerDesktop")
 prompt_node_path = NodePath("../CanvasLayer/ComputerPrompt")
+player_node_path = NodePath("../Player")
 
 [node name="Area3D" type="Area3D" parent="Computer"]
 
