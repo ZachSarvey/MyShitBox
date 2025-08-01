@@ -1,19 +1,20 @@
-extends StaticBody3D
+extends RigidBody3D
 
 @export var outline_mesh: MeshInstance3D
 
-var current_tween
+var current_tween: Tween = null
 
 func _ready():
 	if outline_mesh:
 		outline_mesh.visible = true
 		_set_outline_alpha(0.0)
 
-func highlight(enabled: bool):
+func highlight(enabled: bool) -> void:
 	if not outline_mesh:
 		return
 
-	if current_tween:
+	# Cancel any running tween before starting a new one
+	if current_tween and current_tween.is_valid():
 		current_tween.kill()
 
 	var target_alpha = 0.3 if enabled else 0.0
@@ -33,5 +34,6 @@ func get_outline_alpha() -> float:
 		return mat.get_shader_parameter("outline_color").a
 	return 0.0
 
-func pickup():
-	pass  # Required to signal pickup compatibility
+# Dummy function for pickup compatibility
+func pickup() -> void:
+	pass

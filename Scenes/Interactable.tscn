@@ -12,7 +12,7 @@ shader_parameter/outline_color = Color(0.345098, 1, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5d17x"]
 
-[node name="Interactable" type="StaticBody3D" node_paths=PackedStringArray("outline_mesh")]
+[node name="Interactable" type="RigidBody3D" node_paths=PackedStringArray("outline_mesh")]
 script = ExtResource("1_pi15k")
 outline_mesh = NodePath("OutlineMesh")
 

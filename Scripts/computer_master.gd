@@ -8,6 +8,7 @@ extends Node3D
 var player_in_range := false
 var prompt_visible := false
 var logged_in := false
+var pc_on := false
 
 var desktop_ui: Control
 var area: Area3D
@@ -20,11 +21,13 @@ var username_input: LineEdit
 var password_input: LineEdit
 var login_button: Button
 var error_label: Label
+var exit_button_login: Button
 
 # Desktop app UI
 var desktop: Control
 var internet_button: Button
 var internet_app: Control
+var exit_button_desktop: Button
 
 func _ready() -> void:
 	area = get_node_or_null(area_node_path)
@@ -49,16 +52,32 @@ func _ready() -> void:
 		login_button = login_panel.get_node("LoginButton")
 		error_label = login_panel.get_node("ErrorLabel")
 		error_label.visible = false
+		
+		# Get Exit button under login panel (optional)
+		exit_button_login = login_panel.get_node_or_null("ExitButton")
+		
 		login_button.pressed.connect(_on_login_pressed)
+		if exit_button_login:
+			exit_button_login.pressed.connect(_on_exit_button_pressed)
+		else:
+			push_error("ExitButton not found under LoginPanel!")
 
 		# Get desktop and apps
 		desktop = desktop_ui.get_node("Desktop")
 		internet_button = desktop.get_node("InternetButton")
 		internet_app = desktop_ui.get_node("InternetApp")
-
+		
+		# Get Exit button under desktop UI (optional)
+		exit_button_desktop = desktop.get_node_or_null("ExitButton")
+		
 		desktop.visible = false
 		internet_app.visible = false
 		internet_button.pressed.connect(_on_internet_button_pressed)
+		if exit_button_desktop:
+			exit_button_desktop.pressed.connect(_on_exit_button_pressed)
+		else:
+			push_error("ExitButton not found under Desktop!")
+
 	else:
 		push_error("Desktop UI not assigned!")
 
@@ -143,3 +162,10 @@ func _on_login_pressed() -> void:
 func _on_internet_button_pressed() -> void:
 	if internet_app:
 		internet_app.visible = true
+
+func _on_exit_button_pressed() -> void:
+	if desktop_ui:
+		desktop_ui.visible = false
+	if player:
+		player.set_movement_enabled(true)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

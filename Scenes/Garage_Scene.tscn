@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dn8d0e4ci04ko"]
+[gd_scene load_steps=22 format=3 uid="uid://dn8d0e4ci04ko"]
 
 [ext_resource type="Script" uid="uid://d0xgpvmmyjx48" path="res://Scripts/main.gd" id="1_7vupy"]
 [ext_resource type="PackedScene" uid="uid://cebmfg8w82hts" path="res://Scenes/Player.tscn" id="2_ro7nu"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://dne0o84yn1j4s" path="res://Scripts/money_pickup.gd" id="7_sth8s"]
 [ext_resource type="PackedScene" uid="uid://b50jykoq5hsml" path="res://Scenes/low_poly_barn.tscn" id="8_sth8s"]
 [ext_resource type="Texture2D" uid="uid://dghofug3hx2va" path="res://Textures/KovaaK-Crosshair.png" id="9_6j7gp"]
+[ext_resource type="Texture2D" uid="uid://27oahoxsp0gg" path="res://Textures/Diamond-subtle-pattern-seamless-white-texture-patternpictures-180201-2048x1275.jpg" id="10_0rmm7"]
+[ext_resource type="Texture2D" uid="uid://bfmc587bggxnp" path="res://Textures/power_symbol-1.png" id="10_gklot"]
 [ext_resource type="Script" uid="uid://bw035a4m1nmor" path="res://Scripts/computer_master.gd" id="10_nd6nb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0bb6c"]
@@ -58,7 +60,7 @@ script = ExtResource("1_7vupy")
 [node name="PauseMenu" parent="." instance=ExtResource("4_mntb6")]
 
 [node name="Player" parent="." instance=ExtResource("2_ro7nu")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 80.2498, 1.61472, 6.6148)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 245.091, 1.61472, 6.6148)
 
 [node name="Objects" type="Node" parent="."]
 
@@ -244,6 +246,22 @@ Please Login to Continue"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ExitButton" type="Button" parent="CanvasLayer/ComputerDesktop/LoginPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 2.376
+anchor_top = 1.292
+anchor_right = 2.547
+anchor_bottom = 1.434
+offset_left = -0.0240479
+offset_top = 0.347992
+offset_right = 0.121948
+offset_bottom = 0.346008
+grow_horizontal = 2
+grow_vertical = 2
+icon = ExtResource("10_gklot")
+expand_icon = true
+
 [node name="Desktop" type="Control" parent="CanvasLayer/ComputerDesktop"]
 anchors_preset = 0
 offset_right = 40.0
@@ -262,6 +280,19 @@ offset_bottom = 144.0
 text = "Internet
 "
 
+[node name="ExitButton" type="Button" parent="CanvasLayer/ComputerDesktop/Desktop"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 12.85
+anchor_top = 6.575
+anchor_right = 14.025
+anchor_bottom = 7.75
+offset_bottom = -3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+icon = ExtResource("10_gklot")
+expand_icon = true
+
 [node name="InternetApp" type="Control" parent="CanvasLayer/ComputerDesktop"]
 anchors_preset = 0
 offset_left = -22.0
@@ -269,16 +300,22 @@ offset_top = -16.0
 offset_right = 18.0
 offset_bottom = 24.0
 
-[node name="Panel" type="Panel" parent="CanvasLayer/ComputerDesktop/InternetApp"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/ComputerDesktop/InternetApp"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -2.875
-anchor_top = -3.75
-anchor_right = 4.05
-anchor_bottom = 4.525
-offset_top = 1.52588e-05
+anchor_left = -11.925
+anchor_top = -6.575
+anchor_right = 12.925
+anchor_bottom = 7.575
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ComputerDesktop/InternetApp/ScrollContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ComputerDesktop/InternetApp/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_0rmm7")
 
 [node name="ComputerPrompt" type="Label" parent="CanvasLayer"]
 visible = false
@@ -310,3 +347,6 @@ shape = SubResource("BoxShape3D_6j7gp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Computer"]
 mesh = SubResource("BoxMesh_6j7gp")
+
+[connection signal="pressed" from="CanvasLayer/ComputerDesktop/LoginPanel/ExitButton" to="." method="_on_power_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ComputerDesktop/Desktop/ExitButton" to="." method="_on_power_button_pressed"]

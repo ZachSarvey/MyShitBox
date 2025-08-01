@@ -6,10 +6,6 @@
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_rpqav")
-speed = null
-jump_velocity = null
-gravity = null
-mouse_sensitivity = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_nintu")

@@ -7,15 +7,14 @@ extends CharacterBody3D
 
 var pitch := 0.0
 var camera: Camera3D
-
 var interaction_ray: RayCast3D
-var last_highlighted = null
+var last_highlighted: Node3D = null
 
 var movement_enabled := true
 
 # Pickup system
 var held_item: Node3D = null
-@onready var hold_point = $Camera3D/HoldPoint  # Make sure this node exists
+@onready var hold_point: Node3D = $Camera3D/HoldPoint  # Ensure exists in scene
 
 func _ready():
 	camera = $Camera3D
@@ -28,6 +27,7 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 
+	# Apply gravity
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	else:
@@ -35,6 +35,7 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = jump_velocity
 
+	# Movement input
 	var input_direction = Vector3.ZERO
 	if Input.is_action_pressed("move_forward"):
 		input_direction -= transform.basis.z
@@ -46,9 +47,8 @@ func _physics_process(delta):
 		input_direction += transform.basis.x
 
 	input_direction = input_direction.normalized()
-	var horizontal_velocity = input_direction * speed
-	velocity.x = horizontal_velocity.x
-	velocity.z = horizontal_velocity.z
+	velocity.x = input_direction.x * speed
+	velocity.z = input_direction.z * speed
 
 	move_and_slide()
 
@@ -58,64 +58,69 @@ func _process_interaction():
 	if not movement_enabled:
 		return
 
-	# Always check for drop first when pressing pickup
-	if Input.is_action_just_pressed("pickup") and held_item:
-		drop_held_item()
-		return
+	var detected_item: Node3D = null
 
+	# Raycast to find interactable with highlight method in hierarchy
 	if interaction_ray.is_colliding():
 		var collider = interaction_ray.get_collider()
-
 		while collider and not collider.has_method("highlight"):
 			collider = collider.get_parent()
+		if collider and collider.has_method("highlight"):
+			detected_item = collider
 
-		if collider:
-			if collider != last_highlighted:
-				print("Hit interactable:", collider.name)
-				if last_highlighted and last_highlighted.has_method("highlight"):
-					last_highlighted.highlight(false)
-
-				collider.highlight(true)
-				last_highlighted = collider
-
-			# Regular interaction
-			if Input.is_action_just_pressed("interact") and collider.has_method("interact"):
-				print("Interacting with:", collider.name)
-				collider.interact()
-
-			# Pickup new item if not holding anything
-			if Input.is_action_just_pressed("pickup") and collider.has_method("pickup") and not held_item:
-				pickup_item(collider)
-	else:
+	# Highlight logic
+	if detected_item != last_highlighted:
 		if last_highlighted and last_highlighted.has_method("highlight"):
 			last_highlighted.highlight(false)
-		last_highlighted = null
+		if detected_item:
+			detected_item.highlight(true)
+		last_highlighted = detected_item
+
+	# Interaction input
+	if Input.is_action_just_pressed("interact") and detected_item and detected_item.has_method("interact"):
+		detected_item.interact()
+
+	# Pickup / Drop input
+	if Input.is_action_just_pressed("pickup"):
+		if held_item:
+			drop_held_item()
+		elif detected_item and detected_item.has_method("pickup"):
+			pickup_item(detected_item)
+	else:
+		if last_highlighted and not detected_item:
+			last_highlighted.highlight(false)
+			last_highlighted = null
 
 func pickup_item(item: Node3D):
+	if not is_instance_valid(item):
+		return
 	held_item = item
-	held_item.get_parent().remove_child(held_item)
+
+	# Freeze physics if RigidBody3D
+	if held_item is RigidBody3D:
+		held_item.freeze = true
+
+	var parent = held_item.get_parent()
+	if parent:
+		parent.remove_child(held_item)
+
 	hold_point.add_child(held_item)
 	held_item.transform = Transform3D.IDENTITY
 	held_item.position = Vector3.ZERO
 
-	if held_item is RigidBody3D:
-		held_item.freeze = true
-		held_item.gravity_scale = 0
-		held_item.body_mode = RigidBody3D.BODY_MODE_STATIC
-
 func drop_held_item():
-	if held_item:
-		var world = get_tree().current_scene
-		hold_point.remove_child(held_item)
-		world.add_child(held_item)
-		held_item.global_transform = hold_point.global_transform
-
-		if held_item is RigidBody3D:
-			held_item.freeze = false
-			held_item.gravity_scale = 1
-			held_item.body_mode = RigidBody3D.BODY_MODE_RIGID
-
+	if not is_instance_valid(held_item):
 		held_item = null
+		return
+
+	if held_item is RigidBody3D:
+		held_item.freeze = false
+
+	var world = get_tree().current_scene
+	hold_point.remove_child(held_item)
+	world.add_child(held_item)
+	held_item.global_transform = hold_point.global_transform
+	held_item = null
 
 func _input(event):
 	if not movement_enabled:
