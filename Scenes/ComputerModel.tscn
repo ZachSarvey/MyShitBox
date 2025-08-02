@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdu46dcbordet"]
+
+[ext_resource type="PackedScene" uid="uid://dnqd38g7cs4gw" path="res://3D Models/crt-monitor/computer.fbx" id="1_todue"]
+[ext_resource type="Texture2D" uid="uid://j0h4iqgf1tx0" path="res://3D Models/crt-monitor/Materials/computer_Material_BaseColor.png" id="2_iu18d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v417m"]
+albedo_texture = ExtResource("2_iu18d")
+normal_enabled = true
+
+[node name="computer" instance=ExtResource("1_todue")]
+
+[node name="Cube" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_v417m")
