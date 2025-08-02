@@ -1,21 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://rd1mm5ylco28"]
+[gd_scene load_steps=6 format=3 uid="uid://ct0lnmkvfd8g8"]
 
-[ext_resource type="Script" uid="uid://cq3fbntbjlpcr" path="res://Scripts/WorldObject.gd" id="1_v6xsw"]
-[ext_resource type="Shader" uid="uid://1ijc53hrv7q5" path="res://Shaders/shader_outline.gdshader" id="2_v6xsw"]
+[ext_resource type="Script" uid="uid://cq3fbntbjlpcr" path="res://Scripts/WorldObject.gd" id="1_jx3yg"]
+[ext_resource type="Shader" uid="uid://1ijc53hrv7q5" path="res://Shaders/shader_outline.gdshader" id="2_tl37h"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_5d17x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3jdfj"]
 render_priority = 0
-shader = ExtResource("2_v6xsw")
+shader = ExtResource("2_tl37h")
 shader_parameter/outline_color = Color(0.345098, 1, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5d17x"]
 
 [node name="Interactable" type="RigidBody3D" node_paths=PackedStringArray("outline_mesh")]
-script = ExtResource("1_v6xsw")
-object_id = "car_bumper"
-scene_path = "res://Scenes/car_bumper.tscn"
+script = ExtResource("1_jx3yg")
+object_id = "car_bumper_002"
+scene_path = "res://Scenes/car_bumper002.tscn"
 outline_mesh = NodePath("OutlineMesh")
 
 [node name="OutlineMesh" type="MeshInstance3D" parent="."]

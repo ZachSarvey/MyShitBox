@@ -9,7 +9,7 @@ func _ready():
 
 	if SaveManager.should_load_game:
 		load_game()
-		SaveManager.should_load_game = false  # reset after loading
+		SaveManager.should_load_game = false
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
@@ -29,24 +29,21 @@ func toggle_pause():
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-func save_game():
+func save_game() -> void:
+	await get_tree().physics_frame  # wait for physics frame to finish
 	var save_data = {}
+
 	save_data["player"] = player.get_save_data()
+	save_data["world"] = WorldInventoryState.get_save_data()
+
 	SaveManager.save_game(save_data)
+
 
 func load_game():
 	var save_data = SaveManager.load_game()
+
 	if save_data.has("player"):
 		player.load_from_save(save_data["player"])
 
-
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	pass # Replace with function body.
-
-
-func _on_area_3d_body_exited(body: Node3D) -> void:
-	pass # Replace with function body.
-
-
-func _on_power_button_pressed() -> void:
-	pass # Replace with function body.
+	if save_data.has("world"):
+		WorldInventoryState.load_from_save(save_data["world"])

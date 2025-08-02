@@ -4,15 +4,15 @@
 [ext_resource type="PackedScene" uid="uid://cebmfg8w82hts" path="res://Scenes/Player.tscn" id="2_ro7nu"]
 [ext_resource type="PackedScene" uid="uid://xjt3kvksxjh0" path="res://3D Models/300ZX/scene.gltf" id="3_0bb6c"]
 [ext_resource type="PackedScene" uid="uid://iuc6cuewhdxm" path="res://Scenes/pause_menu.tscn" id="4_mntb6"]
-[ext_resource type="PackedScene" uid="uid://7hlpbae83c1w" path="res://Scenes/Interactable.tscn" id="6_t4kwa"]
 [ext_resource type="Script" uid="uid://daadsbk67n7kc" path="res://Scripts/Money_UI.gd" id="7_6klx0"]
 [ext_resource type="Script" uid="uid://dne0o84yn1j4s" path="res://Scripts/money_pickup.gd" id="7_sth8s"]
 [ext_resource type="PackedScene" uid="uid://b50jykoq5hsml" path="res://Scenes/low_poly_barn.tscn" id="8_sth8s"]
 [ext_resource type="Texture2D" uid="uid://dghofug3hx2va" path="res://Textures/KovaaK-Crosshair.png" id="9_6j7gp"]
-[ext_resource type="PackedScene" uid="uid://bdu46dcbordet" path="res://Scenes/ComputerModel.tscn" id="9_23lwc"]
+[ext_resource type="PackedScene" uid="uid://bdu46dcbordet" path="res://Interactables/ComputerModel.tscn" id="9_23lwc"]
 [ext_resource type="Texture2D" uid="uid://27oahoxsp0gg" path="res://Textures/Diamond-subtle-pattern-seamless-white-texture-patternpictures-180201-2048x1275.jpg" id="10_0rmm7"]
 [ext_resource type="Texture2D" uid="uid://bfmc587bggxnp" path="res://Textures/power_symbol-1.png" id="10_gklot"]
 [ext_resource type="Script" uid="uid://bw035a4m1nmor" path="res://Scripts/computer_master.gd" id="10_nd6nb"]
+[ext_resource type="PackedScene" uid="uid://cmcie161u5rkb" path="res://Interactables/car_bumper.tscn" id="13_23lwc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0bb6c"]
 
@@ -26,9 +26,8 @@ ambient_light_source = 3
 reflected_light_source = 2
 tonemap_mode = 3
 ssr_enabled = true
-ssao_enabled = true
 ssao_intensity = 0.8
-ssil_enabled = true
+sdfgi_use_occlusion = true
 sdfgi_normal_bias = 3.845
 glow_enabled = true
 glow_intensity = 0.3
@@ -59,7 +58,7 @@ script = ExtResource("1_7vupy")
 [node name="PauseMenu" parent="." instance=ExtResource("4_mntb6")]
 
 [node name="Player" parent="." instance=ExtResource("2_ro7nu")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 73.9384, 1.61472, 6.6148)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 246.326, 0.806075, 4.65702)
 
 [node name="Objects" type="Node" parent="."]
 
@@ -92,6 +91,8 @@ light_color = Color(1, 0.94934, 0.617744, 1)
 [node name="300ZX" parent="Cars" instance=ExtResource("3_0bb6c")]
 transform = Transform3D(1.39823, 0, 0.0704393, 0, 1.4, 0, -0.0704393, 0, 1.39823, 77.6816, -0.039675, -2.58307)
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cars/300ZX"]
+
 [node name="World" type="Node" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
@@ -112,9 +113,6 @@ shape = SubResource("BoxShape3D_7vupy")
 mesh = SubResource("PlaneMesh_7vupy")
 
 [node name="Interactables" type="Node" parent="."]
-
-[node name="Interactable" parent="Interactables" instance=ExtResource("6_t4kwa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75.4717, 0.527068, 7.30297)
 
 [node name="MoneyPickup" type="Area3D" parent="Interactables"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.3265, 0, 6.89962)
@@ -145,6 +143,9 @@ shape = SubResource("BoxShape3D_6j7gp")
 
 [node name="computer" parent="Interactables/Computer" instance=ExtResource("9_23lwc")]
 transform = Transform3D(-2.25387e-08, 0, -0.515624, 0, 0.515624, 0, 0.515624, 0, -2.25387e-08, -0.0114136, 0.0611219, 0.135281)
+
+[node name="Interactable" parent="Interactables" instance=ExtResource("13_23lwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.384, 0.527068, 4.84276)
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("7_6klx0")
