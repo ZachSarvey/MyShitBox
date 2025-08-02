@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dne0o84yn1j4s" path="res://Scripts/money_pickup.gd" id="7_sth8s"]
 [ext_resource type="PackedScene" uid="uid://b50jykoq5hsml" path="res://Scenes/low_poly_barn.tscn" id="8_sth8s"]
 [ext_resource type="Texture2D" uid="uid://dghofug3hx2va" path="res://Textures/KovaaK-Crosshair.png" id="9_6j7gp"]
+[ext_resource type="PackedScene" uid="uid://bdu46dcbordet" path="res://Scenes/ComputerModel.tscn" id="9_23lwc"]
 [ext_resource type="Texture2D" uid="uid://27oahoxsp0gg" path="res://Textures/Diamond-subtle-pattern-seamless-white-texture-patternpictures-180201-2048x1275.jpg" id="10_0rmm7"]
 [ext_resource type="Texture2D" uid="uid://bfmc587bggxnp" path="res://Textures/power_symbol-1.png" id="10_gklot"]
 [ext_resource type="Script" uid="uid://bw035a4m1nmor" path="res://Scripts/computer_master.gd" id="10_nd6nb"]
@@ -52,15 +53,13 @@ size = Vector2(700, 700)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6j7gp"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_6j7gp"]
-
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_7vupy")
 
 [node name="PauseMenu" parent="." instance=ExtResource("4_mntb6")]
 
 [node name="Player" parent="." instance=ExtResource("2_ro7nu")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 245.091, 1.61472, 6.6148)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 73.9384, 1.61472, 6.6148)
 
 [node name="Objects" type="Node" parent="."]
 
@@ -128,6 +127,25 @@ shape = SubResource("SphereShape3D_6klx0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.495745, 0)
 mesh = SubResource("SphereMesh_6klx0")
 
+[node name="Computer" type="Node3D" parent="Interactables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 245.362, 1.62416, -5.17126)
+script = ExtResource("10_nd6nb")
+area_node_path = NodePath("Area3D")
+desktop_ui_node_path = NodePath("../../CanvasLayer/ComputerDesktop")
+prompt_node_path = NodePath("../../CanvasLayer/ComputerPrompt")
+player_node_path = NodePath("../../Player")
+
+[node name="Area3D" type="Area3D" parent="Interactables/Computer"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactables/Computer/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0129089, 1.19209e-07, 0.169351)
+shape = SubResource("BoxShape3D_6j7gp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Interactables/Computer"]
+
+[node name="computer" parent="Interactables/Computer" instance=ExtResource("9_23lwc")]
+transform = Transform3D(-2.25387e-08, 0, -0.515624, 0, 0.515624, 0, 0.515624, 0, -2.25387e-08, -0.0114136, 0.0611219, 0.135281)
+
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("7_6klx0")
 
@@ -159,6 +177,7 @@ stretch_mode = 3
 
 [node name="ComputerDesktop" type="Control" parent="CanvasLayer"]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 576.0
@@ -332,22 +351,6 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Press 'F' to start the computer"
-
-[node name="Computer" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 245.362, 1.14866, -5.4127)
-script = ExtResource("10_nd6nb")
-area_node_path = NodePath("Area3D")
-desktop_ui_node_path = NodePath("../CanvasLayer/ComputerDesktop")
-prompt_node_path = NodePath("../CanvasLayer/ComputerPrompt")
-player_node_path = NodePath("../Player")
-
-[node name="Area3D" type="Area3D" parent="Computer"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Computer/Area3D"]
-shape = SubResource("BoxShape3D_6j7gp")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Computer"]
-mesh = SubResource("BoxMesh_6j7gp")
 
 [connection signal="pressed" from="CanvasLayer/ComputerDesktop/LoginPanel/ExitButton" to="." method="_on_power_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ComputerDesktop/Desktop/ExitButton" to="." method="_on_power_button_pressed"]
